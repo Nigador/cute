@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สำหรับเธอคนเดียว 💖</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            color: #ff4d6d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .message-box {
+            font-size: 28px;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 80%;
+            line-height: 1.6;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInUp 1.5s ease-out forwards;
+        }
+        .heart {
+            font-size: 60px;
+            margin-top: 20px;
+            animation: heartbeat 1.5s infinite;
+        }
+        .gif-container {
+            margin-top: 20px;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeInScale 1.5s ease-out forwards 1s;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="message-box" id="loveMessage"></div>
+    <div class="heart">❤️</div>
+    <div class="gif-container">
+        <img src="C:\Users\Hibiki\Downloads\cat.gif" alt="cute love gif" width="300">
+    </div>
+    <iframe id="youtube-player" width="0" height="0" src="https://youtu.be/o0U6OLenJyw?si=QwLLHnDxshs5T0vn" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <script>
+        const messages = [
+            "ถ้าความรักเป็นหนังสือ เธอคงเป็นบทที่สวยที่สุด!",
+            "กาแฟอร่อยดี แต่เธออร่อยกว่า ☕😘",
+            "ถ้ารักเธอเป็นเกม ฉันยอมแพ้แต่เธอคนเดียว!",
+            "ขนาดสายรุ้งยังมี 7 สี แต่เธอคนนี้มีแค่หนึ่งเดียว 💕",
+            "อยากเป็นโซดา เพราะจะได้ซ่ากับเธอ 😍",
+            "เธอมี GPS ไหม? เพราะฉันหลงรักเธอไปแล้ว! 🧭❤️",
+            "ถ้าเธอเป็นเพลง ฉันกดเล่นซ้ำทั้งวัน 🎶💕",
+            "ไม่ใช่กล้องฟิล์ม แต่รักเธอไม่มีวันเก่า 📸💖",
+            "ถ้ารักเธอผิด ฉันก็ไม่อยากถูกเลย! 😘",
+            "เธอคือดวงดาวที่ทำให้ท้องฟ้าของฉันสดใส 🌟💫",
+            "เธอทำให้วันธรรมดากลายเป็นวันพิเศษ 🌈",
+            "อยู่ใกล้เธอแล้วเหมือนได้ชาร์จพลัง 💖⚡",
+            "ขอเป็นหูฟังให้เธอ เพราะอยากอยู่ใกล้หัวใจ 🎧💕",
+            "เธอเป็นเหมือนแสงแดดที่อบอุ่นในวันฝนตก ☀️☔",
+            "รอยยิ้มของเธอทำให้ทุกวันของฉันสดใส 😊✨",
+            "รักเธอเหมือน WiFi สัญญาณเต็มใจตลอดเวลา 📶❤️",
+            "เธอคือของขวัญที่ดีที่สุดที่ฉันเคยได้รับ 🎁💕",
+            "อยากเป็นแมวให้เธออุ้ม เพราะจะได้อยู่ใกล้ตลอด 🐱💖",
+            "หัวใจฉันล็อกอินเข้าเธอแล้ว และไม่มีปุ่มล็อกเอาต์ 💻❤️",
+            "เธอคือความสุขที่ฉันอยากเก็บไว้ตลอดไป 😊💕",
+            "ถ้าเธอเป็นฝัน ฉันไม่อยากตื่นเลย 🌙✨",
+            "ไม่ต้องมีดอกไม้ให้ฉัน ขอแค่มีเธอก็พอ 🌹💘",
+            "เธอเป็นเหมือนเพลงที่ฉันอยากฟังซ้ำ ๆ 🎶❤️",
+            "อยากเป็นเงาให้เธอ เพราะจะได้อยู่ข้าง ๆ ตลอด 🌤️💖",
+            "ถ้ารักเป็นการเดินทาง ฉันอยากเดินไปกับเธอ 🚶‍♂️💕",
+            "เธอคือเหตุผลที่ทำให้หัวใจฉันเต้นแรง 💓🔥",
+            "อยู่กับเธอแล้วเวลาผ่านไปไวเหมือนติดสปีด ⏳❤️",
+            "เธอเป็นเหมือนดวงจันทร์ ทำให้ค่ำคืนของฉันสวยงาม 🌙💫",
+            "ขอเป็นดาวนำทางให้เธอในทุกเส้นทางของชีวิต 🌟💕"
+        ];
+
+        function animateText(element, text, speed) {
+            let i = 0;
+            element.innerText = "";
+            function typeWriter() {
+                if (i < text.length) {
+                    element.innerText += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                }
+            }
+            typeWriter();
+        }
+
+        const messageElement = document.getElementById("loveMessage");
+        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+        setTimeout(() => animateText(messageElement, randomMessage, 50), 500);
+    </script>
+</body>
+</html>
